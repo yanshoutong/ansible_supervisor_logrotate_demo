@@ -1,2 +1,9 @@
 ---
 # handlers file for supervisor
+- name: restart filebeat
+  supervisorctl: name=filebeat state=restarted
+  sudo: True
+
+- name: restart node_exporter
+  supervisorctl: name=node_exporter state=restarted
+  sudo: True
