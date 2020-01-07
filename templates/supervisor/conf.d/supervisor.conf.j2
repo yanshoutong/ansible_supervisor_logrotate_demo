@@ -1,0 +1,8 @@
+[program:{{ program_name }}]
+command={{ program_home }}/production/repo/foobar >> {{ program_home }}/production/logs/log.txt
+directory={{ program_home }}/production/repo
+user={{ ansible_user }}
+autostart=true
+stdout_logfile={{ program_home }}/production/logs/log.txt
+autorestart=true
+redirect_stderr=true
