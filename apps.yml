@@ -1,0 +1,17 @@
+- name: Configure Suporvisor
+  hosts: testserver
+  become: True
+  vars:
+      program_name: foobar
+      program_home: "/home/vagrant"
+  tasks:
+      - name: set the supervisor config file
+        template:
+            src: templates/supervisor/conf.d/supervisor.conf.j2
+            dest: /etc/supervisor/conf.d/supervisor.conf
+        become: True
+        notify: restart supervisor
+  handlers:
+      - name: restart supervisor
+        supervisorctl: name=foobar state=restarted
+        sudo: True
