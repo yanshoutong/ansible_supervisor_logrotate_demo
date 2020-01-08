@@ -1,0 +1,21 @@
+- name: deploy supervisor
+  hosts: testserver
+  become: True
+  roles:
+    - role: arillso.logrotate
+  vars:
+    filebeat_log_dir: /home/vagrant/apps/filebeat/logs
+    node_exporter_log_dir: /home/vagrant/apps/node_exporter/logs
+    logrotate_package: logrotate
+    logrotate_include_dir: /etc/logrotate.d
+    logrotate_applications:
+      - name: youdong_logrotate
+        definitions:
+          - logs:
+              - "{{ filebeat_log_dir }}/*.log"
+              - "{{ node_exporter_log_dir }}/*.log"
+            options:
+              - rotate 12
+              - monthly
+              - missingok
+              - notifempty

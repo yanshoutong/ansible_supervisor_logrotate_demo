@@ -1,9 +1,14 @@
 ---
 # tasks file for supervisor
+- name: fixed broken install if needed
+  shell: apt --fix-broken -y install
+  become: True
+
 - name: install supervisor tool if needed
   apt:
     name: supervisor
     update_cache: yes
+    state: fixed
 
 - name: create filebeat app location
   file:
