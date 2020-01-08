@@ -3,3 +3,4 @@
 .vagrant
 downloads
 .*.swp
+.DS_Store

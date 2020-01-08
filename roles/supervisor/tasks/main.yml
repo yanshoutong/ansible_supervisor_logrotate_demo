@@ -1,0 +1,53 @@
+---
+# tasks file for supervisor
+- name: install supervisor tool if needed
+  apt:
+    name: supervisor
+    update_cache: yes
+
+- name: create filebeat app location
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: u+rwx,g+rwx
+  with_items:
+    - "{{ filebeat_home }}/bin"
+    - "{{ filebeat_home }}/logs"
+- name: populate filebeat app if needed
+  copy:
+    src: files/filebeat
+    dest: "{{ filebeat_home }}/bin/{{ filebeat_name }}"
+    mode: u+rwx,g+x,o+x
+- name: setup filebeat config
+  template:
+    src: templates/conf.d/filebeat.conf.j2
+    dest: /etc/supervisor/conf.d/filebeat.conf
+  notify: restart filebeat
+  become: True
+  vars:
+    program_name: "{{ filebeat_name }}"
+    program_home: "{{ filebeat_home }}"
+   
+
+- name: create node_exporter app location
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: u+rwx,g+rwx
+  with_items:
+    - "{{ node_exporter_home }}/bin"
+    - "{{ node_exporter_home }}/logs"
+- name: populate node_exporter app if needed
+  copy:
+    src: files/node_exporter
+    dest: "{{ node_exporter_home }}/bin/{{ node_exporter_name }}"
+    mode: u+rwx,g+x,o+x
+- name: setup node_exporter config
+  template:
+    src: templates/conf.d/node_exporter.conf.j2
+    dest: /etc/supervisor/conf.d/node_exporter.conf
+  vars:
+    program_name: "{{ node_exporter_name }}"
+    program_home: "{{ node_exporter_home }}"
+  notify: restart node_exporter
+  become: True

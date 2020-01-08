@@ -1,0 +1,6 @@
+---
+# vars file for supervisor
+filebeat_name: filebeat
+filebeat_home: /home/vagrant/apps/filebeat
+node_exporter_name: node_exporter
+node_exporter_home: /home/vagrant/apps/node_exporter
