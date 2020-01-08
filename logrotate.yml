@@ -7,6 +7,7 @@
     filebeat_log_dir: /home/vagrant/apps/filebeat/logs
     node_exporter_log_dir: /home/vagrant/apps/node_exporter/logs
     logrotate_package: logrotate
+    logrotate_use_hourly_rotation: true
     logrotate_include_dir: /etc/logrotate.d
     logrotate_applications:
       - name: youdong_logrotate
@@ -15,7 +16,14 @@
               - "{{ filebeat_log_dir }}/*.log"
               - "{{ node_exporter_log_dir }}/*.log"
             options:
-              - rotate 12
-              - monthly
+              - size=1M
+              - rotate 3
+              - daily
               - missingok
               - notifempty
+              - create 0644 vagrant vagrant
+              - |
+                postrotate
+                  killall filebeat
+                  killall node_exporter 
+                endscript
