@@ -3,4 +3,3 @@
   become: True
   roles:
     - role: supervisor
-    - role: logrotate

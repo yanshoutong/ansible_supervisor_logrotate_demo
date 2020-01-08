@@ -1,8 +1,8 @@
 [program:{{ program_name }}]
-command={{ program_home }}/bin/{{ program_name }} >> {{ program_home }}/logs/log.txt
+command={{ program_home }}/bin/{{ program_name }}
 directory={{ program_home }}/bin
 user={{ ansible_user }}
 autostart=true
-stdout_logfile={{ program_home }}/logs/log.txt
+stdout_logfile={{ program_home }}/logs/{{ program_name }}.log
 autorestart=true
 redirect_stderr=true
