@@ -16,6 +16,7 @@
               - "{{ filebeat_log_dir }}/*.log"
               - "{{ node_exporter_log_dir }}/*.log"
             options:
+              - su {{ ansible_user }} {{ ansible_user }}
               - size=1M
               - rotate 3
               - daily
@@ -25,5 +26,5 @@
               - |
                 postrotate
                   killall filebeat
-                  killall node_exporter 
+                  killall node_exporter
                 endscript
