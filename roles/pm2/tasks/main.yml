@@ -1,13 +1,6 @@
 ---
 # tasks file for pm2
-- name: show path
-  debug: msg="current path is {{ path }}"
-- name: hostname 
-  command: hostname
-  register: xxx
-- name: show show show
-  debug: var=xxx
 - name: stop pm2
-  shell: "( cd /home/vagrant/production; pm2 stop all )"
+  shell: "pm2 stop all"
 - name: pm2 status
-  shell: "( cd /home/vagrant/production; pm2 status )"
+  shell: "pm2 status"
