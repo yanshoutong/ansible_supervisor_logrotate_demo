@@ -1,0 +1,6 @@
+---
+# tasks file for pm2
+- name: stop pm2
+  shell: "pm2 stop all"
+- name: pm2 status
+  shell: "pm2 status"

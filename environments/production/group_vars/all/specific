@@ -1,0 +1,3 @@
+---
+nvm_dir: "{{ ansible_env.HOME }}/.nvm"
+path: "{{ ansible_env.HOME }}/.nvm/versions/node/v12.4.0/bin:{{ ansible_env.PATH }}"

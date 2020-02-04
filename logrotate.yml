@@ -17,14 +17,15 @@
               - "{{ node_exporter_log_dir }}/*.log"
             options:
               - su {{ ansible_user }} {{ ansible_user }}
-              - size=1M
+              - size 50M
               - rotate 3
               - daily
               - missingok
               - notifempty
+              - copytruncate
               - create 0644 vagrant vagrant
               - |
-                postrotate
-                  killall filebeat
-                  killall node_exporter
-                endscript
+                  postrotate
+                         killall filebeat
+                         killall node_exporter
+                      endscript

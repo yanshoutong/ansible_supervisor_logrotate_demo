@@ -1,6 +1,0 @@
-- name: deploy supervisor
-  hosts: testserver
-  become: True
-  roles:
-    - role: supervisor
-    - role: logrotate

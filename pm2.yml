@@ -1,0 +1,8 @@
+- name: deploy supervisor
+  hosts: "{{ servers }}"
+  environment:
+    NVM_DIR: "{{ nvm_dir }}"
+    PATH: "{{ path }}"
+  roles:
+    - role: pm2
+
